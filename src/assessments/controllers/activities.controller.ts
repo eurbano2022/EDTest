@@ -13,7 +13,7 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateActivityDto, UpdateActivityDto } from '../dtos/activity.dto';
 import { ActivitiesService } from '../services/activities.service';
 
-@ApiTags('activity')
+@ApiTags('Activities')
 @Controller('activity')
 export class ActivitiesController {
     constructor(private activityService: ActivitiesService) {}

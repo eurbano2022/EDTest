@@ -13,7 +13,7 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateResourceDto, UpdateResourceDto } from '../dtos/resource.dto';
 import { ResourcesService } from '../services/resources.service';
 
-@ApiTags('resource')
+@ApiTags('Resources')
 @Controller('resource')
 export class ResourcesController {
     constructor(private resourceService: ResourcesService) {}

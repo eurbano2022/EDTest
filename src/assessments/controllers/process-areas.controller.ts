@@ -16,7 +16,7 @@ import {
 } from '../dtos/process-area.dto';
 import { ProcessAreasService } from '../services/process-areas.service';
 
-@ApiTags('processAreas')
+@ApiTags('ProcessAreas')
 @Controller('processAreas')
 export class ProcessAreasController {
     constructor(private processAreasService: ProcessAreasService) {}

@@ -13,7 +13,7 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateCriteriaDto, UpdateCriteriaDto } from '../dtos/criteria.dto';
 import { CriteriaService } from '../services/criteria.service';
 
-@ApiTags('criteria')
+@ApiTags('Criteria')
 @Controller('criteria')
 export class CriteriaController {
     constructor(private criteriaService: CriteriaService) {}

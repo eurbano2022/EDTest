@@ -13,7 +13,7 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateLevelDto, UpdateLevelDto } from '../dtos/level.dto';
 import { LevelsService } from '../services/levels.service';
 
-@ApiTags('levels')
+@ApiTags('Levels')
 @Controller('levels')
 export class LevelsController {
     constructor(private levelsService: LevelsService) {}
