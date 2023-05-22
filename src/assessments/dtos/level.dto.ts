@@ -1,10 +1,10 @@
 import { PartialType, ApiProperty } from '@nestjs/swagger';
 import { IsString, IsNotEmpty } from 'class-validator';
 
-export class CreateProductDto {
+export class CreateLevelDto {
     @IsString()
     @IsNotEmpty()
-    @ApiProperty({ description: `product's name` })
+    @ApiProperty()
     readonly name: string;
 
     @IsString()
@@ -13,4 +13,4 @@ export class CreateProductDto {
     readonly description: string;
 }
 
-export class UpdateProductDto extends PartialType(CreateProductDto) {}
+export class UpdateLevelDto extends PartialType(CreateLevelDto) {}
