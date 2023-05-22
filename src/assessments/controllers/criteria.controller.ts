@@ -9,9 +9,9 @@ import {
     Put,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { CriteriaService } from '../services/criteria.service';
-import { CreateCriteriaDto, UpdateCriteriaDto } from '../dtos/criteria.dto';
 
+import { CreateCriteriaDto, UpdateCriteriaDto } from '../dtos/criteria.dto';
+import { CriteriaService } from '../services/criteria.service';
 
 @ApiTags('criteria')
 @Controller('criteria')

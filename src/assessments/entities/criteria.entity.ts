@@ -6,6 +6,7 @@ import {
     UpdateDateColumn,
     ManyToOne,
 } from 'typeorm';
+
 import { ProcessArea } from './process-area.entity';
 
 @Entity()
@@ -35,5 +36,5 @@ export class Criteria {
     updatedAt: Date;
 
     @ManyToOne(() => ProcessArea, (processArea) => processArea.criteria)
-    processArea: ProcessArea
+    processArea: ProcessArea;
 }

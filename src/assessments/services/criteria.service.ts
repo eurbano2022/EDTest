@@ -1,13 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { ProcessArea } from '../entities/process-area.entity';
-import { CreateProcessAreaDto, UpdateProcessAreaDto } from '../dtos/process-area.dto';
-import { LevelsService } from './levels.service';
-import { CreateCriteriaDto, UpdateCriteriaDto } from '../dtos/criteria.dto';
-import { ProcessAreasService } from './process-areas.service';
-import { Criteria } from '../entities/criteria.entity';
 
+import { CreateCriteriaDto, UpdateCriteriaDto } from '../dtos/criteria.dto';
+import { Criteria } from '../entities/criteria.entity';
+import { ProcessArea } from '../entities/process-area.entity';
+
+import { ProcessAreasService } from './process-areas.service';
 
 @Injectable()
 export class CriteriaService {
@@ -19,7 +18,7 @@ export class CriteriaService {
 
     findAll() {
         return this.criteriaRepo.find({
-            relations:['level']
+            relations: ['level'],
         });
     }
 
@@ -34,7 +33,9 @@ export class CriteriaService {
     async create(data: CreateCriteriaDto) {
         const newProcessArea = this.criteriaRepo.create(data);
         if (data.processAreaId) {
-            const processArea = await this.processAreaService.findOne(data.processAreaId);
+            const processArea = await this.processAreaService.findOne(
+                data.processAreaId,
+            );
             newProcessArea.processArea = processArea;
         }
         return this.criteriaRepo.save(newProcessArea);
@@ -43,7 +44,9 @@ export class CriteriaService {
     async update(id: number, changes: UpdateCriteriaDto) {
         const criteria = await this.criteriaRepo.findOne({ where: { id } });
         if (changes.processAreaId) {
-            const processArea = await this.processAreaService.findOne(changes.processAreaId);
+            const processArea = await this.processAreaService.findOne(
+                changes.processAreaId,
+            );
             criteria.processArea = processArea;
         }
         this.criteriaRepo.merge(criteria, changes);

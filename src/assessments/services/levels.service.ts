@@ -18,7 +18,7 @@ export class LevelsService {
     async findOne(id: number) {
         const level = await this.levelRepo.findOne({
             where: { id },
-            relations: ['processAreas']
+            relations: ['processAreas'],
         });
         if (!level) {
             throw new NotFoundException(`Level #${id} not found`);

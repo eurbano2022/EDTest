@@ -7,8 +7,9 @@ import {
     ManyToOne,
     OneToMany,
 } from 'typeorm';
-import { Level } from './level.entity';
+
 import { Criteria } from './criteria.entity';
+import { Level } from './level.entity';
 
 @Entity()
 export class ProcessArea {
@@ -37,7 +38,7 @@ export class ProcessArea {
     updatedAt: Date;
 
     @ManyToOne(() => Level, (level) => level.processAreas)
-    level: Level
+    level: Level;
 
     @OneToMany(() => Criteria, (criteria) => criteria.processArea)
     criteria: Criteria[];

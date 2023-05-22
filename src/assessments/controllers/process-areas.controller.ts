@@ -9,9 +9,12 @@ import {
     Put,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { ProcessAreasService } from '../services/process-areas.service';
-import { CreateProcessAreaDto, UpdateProcessAreaDto } from '../dtos/process-area.dto';
 
+import {
+    CreateProcessAreaDto,
+    UpdateProcessAreaDto,
+} from '../dtos/process-area.dto';
+import { ProcessAreasService } from '../services/process-areas.service';
 
 @ApiTags('processAreas')
 @Controller('processAreas')

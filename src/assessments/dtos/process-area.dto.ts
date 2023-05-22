@@ -1,5 +1,5 @@
 import { PartialType, ApiProperty } from '@nestjs/swagger';
-import { IsString, IsNotEmpty, IsNumber, IsPositive } from 'class-validator';
+import { IsString, IsNotEmpty, IsPositive } from 'class-validator';
 
 export class CreateProcessAreaDto {
     @IsString()

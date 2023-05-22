@@ -6,6 +6,7 @@ import {
     UpdateDateColumn,
     OneToMany,
 } from 'typeorm';
+
 import { ProcessArea } from './process-area.entity';
 
 @Entity()
