@@ -8,9 +8,10 @@ import { Level } from './entities/level.entity';
 import { CriteriaService } from './services/criteria.service';
 import { LevelsService } from './services/levels.service';
 import { ProcessAreasService } from './services/process-areas.service';
+import { ProcessArea } from './entities/process-area.entity';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Level])],
+    imports: [TypeOrmModule.forFeature([Level, ProcessArea])],
     providers: [LevelsService, ProcessAreasService, CriteriaService],
     controllers: [CriteriaController, ProcessAreasController, LevelsController],
 })

@@ -16,22 +16,25 @@ export class LevelsService {
     }
 
     async findOne(id: number) {
-        const product = await this.levelRepo.findOne({ where: { id } });
-        if (!product) {
-            throw new NotFoundException(`Product #${id} not found`);
+        const level = await this.levelRepo.findOne({
+            where: { id },
+            relations: ['processAreas']
+        });
+        if (!level) {
+            throw new NotFoundException(`Level #${id} not found`);
         }
-        return product;
+        return level;
     }
 
     create(data: CreateLevelDto) {
-        const newProduct = this.levelRepo.create(data);
-        return this.levelRepo.save(newProduct);
+        const newLevel = this.levelRepo.create(data);
+        return this.levelRepo.save(newLevel);
     }
 
     async update(id: number, changes: UpdateLevelDto) {
-        const product = await this.levelRepo.findOne({ where: { id } });
-        this.levelRepo.merge(product, changes);
-        return this.levelRepo.save(product);
+        const level = await this.levelRepo.findOne({ where: { id } });
+        this.levelRepo.merge(level, changes);
+        return this.levelRepo.save(level);
     }
 
     remove(id: number) {

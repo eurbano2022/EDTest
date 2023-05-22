@@ -4,12 +4,12 @@ import {
     Entity,
     CreateDateColumn,
     UpdateDateColumn,
-    OneToMany,
+    ManyToOne,
 } from 'typeorm';
-import { ProcessArea } from './process-area.entity';
+import { Level } from './level.entity';
 
 @Entity()
-export class Level {
+export class ProcessArea {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -34,6 +34,6 @@ export class Level {
     })
     updatedAt: Date;
 
-    @OneToMany(() => ProcessArea, (product) => product.level)
-    processAreas: ProcessArea[];
+    @ManyToOne(() => Level, (level) => level.processAreas)
+    level: Level
 }
