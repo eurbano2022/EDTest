@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
-import { ProcessAreasService } from './services/process-areas.service';
-import { CriteriaService } from './services/criteria.service';
+
 import { CriteriaController } from './controllers/criteria.controller';
-import { LevelsService } from './services/levels.service';
-import { ProcessAreasController } from './controllers/process-areas.controller';
 import { LevelsController } from './controllers/levels.controller';
+import { ProcessAreasController } from './controllers/process-areas.controller';
+import { CriteriaService } from './services/criteria.service';
+import { LevelsService } from './services/levels.service';
+import { ProcessAreasService } from './services/process-areas.service';
 
 @Module({
     providers: [LevelsService, ProcessAreasService, CriteriaService],
