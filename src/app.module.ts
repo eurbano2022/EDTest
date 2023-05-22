@@ -6,7 +6,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AssessmentsModule } from './assessments/assessments.module';
 import config from './config';
-import { DatabaseModule } from './databases/database.module';
+import { DatabaseModule } from './database/database.module';
 import { enviroments } from './environments';
 import { UsersModule } from './users/users.module';
 
