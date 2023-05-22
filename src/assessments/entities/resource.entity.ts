@@ -5,15 +5,12 @@ import {
     CreateDateColumn,
     UpdateDateColumn,
     ManyToOne,
-    OneToMany,
 } from 'typeorm';
 
-import { Activity } from './activity.entity';
-import { ProcessArea } from './process-area.entity';
-import { Resource } from './resource.entity';
+import { Criteria } from './criteria.entity';
 
 @Entity()
-export class Criteria {
+export class Resource {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -38,12 +35,6 @@ export class Criteria {
     })
     updatedAt: Date;
 
-    @ManyToOne(() => ProcessArea, (processArea) => processArea.criteria)
-    processArea: ProcessArea;
-
-    @OneToMany(() => Activity, (activity) => activity.criteria)
-    activity: Activity[];
-
-    @OneToMany(() => Resource, (resource) => resource.criteria)
-    resource: Resource[];
+    @ManyToOne(() => Criteria, (criteria) => criteria.activity)
+    criteria: Criteria;
 }
