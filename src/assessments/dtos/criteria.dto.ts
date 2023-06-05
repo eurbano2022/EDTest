@@ -16,6 +16,11 @@ export class CreateCriteriaDto {
     @IsNotEmpty()
     @ApiProperty()
     readonly processAreaId: number;
+
+    @IsPositive()
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly parentId: number;
 }
 
 export class UpdateCriteriaDto extends PartialType(CreateCriteriaDto) {}

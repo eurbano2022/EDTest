@@ -4,50 +4,61 @@ import { Repository } from 'typeorm';
 
 import { CreateCriteriaDto, UpdateCriteriaDto } from '../dtos/criteria.dto';
 import { Criteria } from '../entities/criteria.entity';
-import { ProcessArea } from '../entities/process-area.entity';
 
 import { ProcessAreasService } from './process-areas.service';
 
 @Injectable()
 export class CriteriaService {
     constructor(
-        @InjectRepository(ProcessArea)
+        @InjectRepository(Criteria)
         private criteriaRepo: Repository<Criteria>,
-        private processAreaService: ProcessAreasService,
+        private processAreasService: ProcessAreasService,
     ) {}
 
     findAll() {
         return this.criteriaRepo.find({
-            relations: ['level'],
+            relations: ['processArea', 'parent'],
         });
     }
 
     async findOne(id: number) {
         const criteria = await this.criteriaRepo.findOne({ where: { id } });
         if (!criteria) {
-            throw new NotFoundException(`ProcessArea #${id} not found`);
+            throw new NotFoundException(`Criteria #${id} not found`);
         }
         return criteria;
     }
 
     async create(data: CreateCriteriaDto) {
-        const newProcessArea = this.criteriaRepo.create(data);
+        const newCriteria = this.criteriaRepo.create(data);
         if (data.processAreaId) {
-            const processArea = await this.processAreaService.findOne(
+            const processArea = await this.processAreasService.findOne(
                 data.processAreaId,
             );
-            newProcessArea.processArea = processArea;
+            newCriteria.processArea = processArea;
         }
-        return this.criteriaRepo.save(newProcessArea);
+        if (data.parentId) {
+            const criteria = await this.criteriaRepo.findOne({
+                where: { id: data.parentId },
+            });
+            newCriteria.parent = criteria;
+        }
+        return this.criteriaRepo.save(newCriteria);
     }
 
     async update(id: number, changes: UpdateCriteriaDto) {
         const criteria = await this.criteriaRepo.findOne({ where: { id } });
         if (changes.processAreaId) {
-            const processArea = await this.processAreaService.findOne(
+            const processArea = await this.processAreasService.findOne(
                 changes.processAreaId,
             );
             criteria.processArea = processArea;
+        }
+        if (changes.parentId) {
+            const criteria = await this.criteriaRepo.findOne({
+                where: { id: changes.parentId },
+            });
+            criteria.parent = criteria;
         }
         this.criteriaRepo.merge(criteria, changes);
         return this.criteriaRepo.save(criteria);

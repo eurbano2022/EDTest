@@ -24,9 +24,9 @@ export class CriteriaController {
         return this.criteriaService.findAll();
     }
 
-    @Get(':processAreaId')
-    getOne(@Param('processAreaId', ParseIntPipe) processAreaId: number) {
-        return this.criteriaService.findOne(processAreaId);
+    @Get(':criteriaId')
+    getOne(@Param('criteriaId', ParseIntPipe) criteriaId: number) {
+        return this.criteriaService.findOne(criteriaId);
     }
 
     @Post()

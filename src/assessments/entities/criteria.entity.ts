@@ -46,4 +46,7 @@ export class Criteria {
 
     @OneToMany(() => Resource, (resource) => resource.criteria)
     resource: Resource[];
+
+    @ManyToOne(() => Criteria, (criteria) => criteria.parent)
+    parent: Criteria;
 }
