@@ -39,6 +39,7 @@ export const handler = async (event, context) => {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
     };
+    response.statusCode = 200;
 
     return response;
 };
