@@ -20,7 +20,17 @@ functions:
                 method: any
                 path: /{proxy+}
                 cors: true
-
+custom:
+    apigateway:
+        responses:
+            default:
+                responseParameters:
+                    method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
+                    method.response.header.Access-Control-Allow-Methods: "'GET,OPTIONS'"
+                    method.response.header.Access-Control-Allow-Origin: "'*'"
+    apiKeys: []
+    usagePlan: {}
 plugins:
     - serverless-jetpack
     - serverless-offline
+    - serverless-apigateway-plugin
