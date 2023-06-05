@@ -31,6 +31,14 @@ export const handler = async (event, context) => {
             app: nestApp.getHttpAdapter().getInstance(),
         });
     }
+    const response = await cachedServer(event, context);
 
-    return cachedServer(event, context);
+    // Agregar los encabezados en la respuesta
+    response.headers = {
+        ...response.headers,
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+    };
+
+    return response;
 };
