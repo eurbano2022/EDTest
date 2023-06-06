@@ -2,6 +2,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { configure as serverlessEspress } from '@vendia/serverless-express';
+import * as cors from 'cors';
 
 import { AppModule } from './app.module';
 
@@ -10,6 +11,7 @@ let cachedServer;
 export const handler = async (event, context) => {
     if (!cachedServer) {
         const nestApp = await NestFactory.create(AppModule);
+        nestApp.use(cors());
         nestApp.useGlobalPipes(
             new ValidationPipe({
                 whitelist: true,
