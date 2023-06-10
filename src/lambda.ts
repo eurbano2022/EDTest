@@ -33,19 +33,19 @@ export const handler = async (event, context) => {
             app: nestApp.getHttpAdapter().getInstance(),
         });
     }
-    // Verificar si es una solicitud OPTIONS
-    if (event.httpMethod === 'OPTIONS') {
-        const response = {
-            statusCode: 200,
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
-                'Access-Control-Allow-Headers': 'Content-Type',
-            },
-        };
+    // // Verificar si es una solicitud OPTIONS
+    // if (event.httpMethod === 'OPTIONS') {
+    //     const response = {
+    //         statusCode: 200,
+    //         headers: {
+    //             'Access-Control-Allow-Origin': '*',
+    //             'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+    //             'Access-Control-Allow-Headers': 'Content-Type',
+    //         },
+    //     };
 
-        return response;
-    }
+    //     return response;
+    // }
 
     const response = await cachedServer(event, context);
 
@@ -55,8 +55,6 @@ export const handler = async (event, context) => {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
     };
-
-    return response;
 
     return response;
 };
