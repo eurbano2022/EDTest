@@ -11,14 +11,12 @@ let cachedServer;
 export const handler = async (event, context) => {
     if (!cachedServer) {
         const nestApp = await NestFactory.create(AppModule);
-        nestApp.use(cors());
         nestApp.useGlobalPipes(
             new ValidationPipe({
                 whitelist: true,
                 forbidNonWhitelisted: true,
             }),
         );
-
         const config = new DocumentBuilder()
             .setTitle('ED Test')
             .setDescription('Management of the Maturity Assessment')
@@ -27,14 +25,13 @@ export const handler = async (event, context) => {
             .build();
         const document = SwaggerModule.createDocument(nestApp, config);
         SwaggerModule.setup('docs', nestApp, document);
-
         await nestApp.init();
         cachedServer = serverlessExpress({
             app: nestApp.getHttpAdapter().getInstance(),
         });
     }
 
-    const response = await cachedServer(event, context);
+    return cachedServer(event, context);
 
     // // Agregar los encabezados en la respuesta
     // response.headers = {
@@ -43,5 +40,5 @@ export const handler = async (event, context) => {
     //     'Access-Control-Allow-Origin': '*',
     // };
 
-    return response;
+    // return response;
 };
