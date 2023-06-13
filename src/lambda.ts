@@ -1,7 +1,7 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { configure as serverlessEspress } from '@vendia/serverless-express';
+import { configure as serverlessExpress } from '@vendia/serverless-express';
 import * as cors from 'cors';
 
 import { AppModule } from './app.module';
@@ -29,32 +29,19 @@ export const handler = async (event, context) => {
         SwaggerModule.setup('docs', nestApp, document);
 
         await nestApp.init();
-        cachedServer = serverlessEspress({
+        cachedServer = serverlessExpress({
             app: nestApp.getHttpAdapter().getInstance(),
         });
     }
-    // // Verificar si es una solicitud OPTIONS
-    // if (event.httpMethod === 'OPTIONS') {
-    //     const response = {
-    //         statusCode: 200,
-    //         headers: {
-    //             'Access-Control-Allow-Origin': '*',
-    //             'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
-    //             'Access-Control-Allow-Headers': 'Content-Type',
-    //         },
-    //     };
-
-    //     return response;
-    // }
 
     const response = await cachedServer(event, context);
 
-    // Agregar los encabezados en la respuesta
-    response.headers = {
-        ...response.headers,
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-    };
+    // // Agregar los encabezados en la respuesta
+    // response.headers = {
+    //     ...response.headers,
+    //     'Content-Type': 'application/json',
+    //     'Access-Control-Allow-Origin': '*',
+    // };
 
     return response;
 };
