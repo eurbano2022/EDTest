@@ -23,8 +23,8 @@ export class Criteria {
     @Column({ type: 'text' })
     description: string;
 
-    @Column({ type: 'number' })
-    weight: string;
+    @Column({ type: 'int' })
+    weight: number;
 
     @CreateDateColumn({
         type: 'timestamp',
