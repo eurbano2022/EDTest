@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
-import { AppService } from './app.service';
+import { AppService, responseMutant } from './app.service';
 
 @Controller()
 export class AppController {
@@ -9,8 +9,8 @@ export class AppController {
 
     @ApiTags('Mutant Validation')
     @Post()
-    isMutant(@Body() dna: string[]): boolean {
-        return this.appService.isMutant(dna);
+    async isMutant(@Body() dna: string[]): Promise<responseMutant> {
+        return await this.appService.isMutant(dna);
     }
 
     @ApiTags('Hello World')
