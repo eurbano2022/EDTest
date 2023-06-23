@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-
 @Injectable()
 export class AppService {
     getHello(): string {
@@ -7,52 +6,110 @@ export class AppService {
     }
 
     isMutant(dna: string[]): boolean {
-        const n = dna.length;
         const matrix = this.createMatrix(dna);
+        const transpose = this.transposeMatrix(matrix);
+        let leftDiagonals = this.getReverseDiagonals(matrix);
+        let rightDiagonals = this.getDiagonals(matrix);
 
-        // Función para verificar si una secuencia es mutante
-        const checkSequence = (sequence: string): boolean => {
-            const regex = /(A{4}|C{4}|G{4}|T{4})/;
-            return regex.test(sequence);
-        };
+        leftDiagonals = this.deleteRepeatRows(leftDiagonals);
+        rightDiagonals = this.deleteRepeatRows(rightDiagonals);
 
-        // Verificar secuencias horizontales y verticales
-        for (let i = 0; i < n; i++) {
-            let horizontal = '';
-            let vertical = '';
-            for (let j = 0; j < n; j++) {
-                horizontal += matrix[i][j];
-                vertical += matrix[j][i];
-            }
-            if (checkSequence(horizontal) || checkSequence(vertical)) {
-                return true;
-            }
-        }
+        const transposeRepetitions =
+            this.countRowsWithFourRepetitions(transpose);
+        const matrixCountRepetitions =
+            this.countRowsWithFourRepetitions(matrix);
+        const leftDiagonalsRepetitions =
+            this.countRowsWithFourRepetitions(leftDiagonals);
+        const rightDiagonalsRepetitions =
+            this.countRowsWithFourRepetitions(rightDiagonals);
+        const result =
+            transposeRepetitions +
+            matrixCountRepetitions +
+            leftDiagonalsRepetitions +
+            rightDiagonalsRepetitions;
 
-        // Verificar secuencias diagonales
-        for (let i = 0; i < n - 3; i++) {
-            for (let j = 0; j < n - 3; j++) {
-                const diagonal1 =
-                    matrix[i][j] +
-                    matrix[i + 1][j + 1] +
-                    matrix[i + 2][j + 2] +
-                    matrix[i + 3][j + 3];
-                const diagonal2 =
-                    matrix[i][j + 3] +
-                    matrix[i + 1][j + 2] +
-                    matrix[i + 2][j + 1] +
-                    matrix[i + 3][j];
-                if (checkSequence(diagonal1) || checkSequence(diagonal2)) {
-                    return true;
-                }
-            }
-        }
-
-        // No se encontraron suficientes secuencias mutantes
-        return false;
+        return result >= 2;
     }
 
+    private printMatrix(matrix: string[][]): void {
+        for (const row of matrix) {
+            console.log(row.join(' '));
+        }
+    }
+
+    private transposeMatrix(matrix: string[][]): string[][] {
+        return matrix[0].map((_, columnIndex) =>
+            matrix.reduce((column, row) => {
+                column.push(row[columnIndex]);
+                return column;
+            }, []),
+        );
+    }
     private createMatrix(dna: string[]): string[][] {
         return dna.map((row) => row.split(''));
+    }
+
+    private countRowsWithFourRepetitions(matrix: string[][]): number {
+        let count = 0;
+        matrix.forEach((row) => {
+            if (row.join('').match(/(.)\1{3}/) !== null) {
+                count++;
+            }
+        });
+        return count;
+    }
+
+    private getDiagonals(matrix: string[][]): string[][] {
+        const numRows = matrix.length;
+        const numCols = matrix[0].length;
+
+        const diagonals = [
+            ...Array(numCols).keys(),
+            ...Array(numRows - 3).keys(),
+        ].flatMap((k) => {
+            const diagonal: string[] = [];
+
+            diagonal.push(
+                ...Array(Math.min(numRows - k, numCols))
+                    .fill('')
+                    .map((_, i) => matrix[i + k][i]),
+            );
+
+            return diagonal.length >= 4 ? [diagonal] : [];
+        });
+
+        return diagonals;
+    }
+    private getReverseDiagonals(matrix: string[][]): string[][] {
+        const numRows = matrix.length;
+        const numCols = matrix[0].length;
+
+        const reverseDiagonals = [
+            ...Array(numCols).keys(),
+            ...Array(numRows - 3).keys(),
+        ].flatMap((k) => {
+            const reverseDiagonal: string[] = [];
+
+            reverseDiagonal.push(
+                ...Array(Math.min(numRows - k, numCols))
+                    .fill('')
+                    .map((_, i) => matrix[numRows - 1 - i - k][i]),
+            );
+
+            return reverseDiagonal.length >= 4 ? [reverseDiagonal] : [];
+        });
+
+        return reverseDiagonals;
+    }
+    private deleteRepeatRows(matrix) {
+        const unicRows = matrix.filter((row, index) => {
+            return (
+                matrix.findIndex((row2) => {
+                    return JSON.stringify(row) === JSON.stringify(row2);
+                }) === index
+            );
+        });
+
+        return unicRows;
     }
 }
