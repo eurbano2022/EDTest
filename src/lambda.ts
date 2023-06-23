@@ -15,6 +15,14 @@ export const handler = async (event, context) => {
             cors: true,
         });
 
+        const config = new DocumentBuilder()
+            .setTitle('ED Test')
+            .setDescription('Management of the Maturity Assessment')
+            .setVersion('1.0')
+            .build();
+        const document = SwaggerModule.createDocument(nestApp, config);
+        SwaggerModule.setup('docs', nestApp, document);
+
         nestApp.use(cors());
 
         nestApp.use((req, res, next) => {
@@ -28,14 +36,6 @@ export const handler = async (event, context) => {
                 forbidNonWhitelisted: true,
             }),
         );
-
-        const config = new DocumentBuilder()
-            .setTitle('ED Test')
-            .setDescription('Management of the Maturity Assessment')
-            .setVersion('1.0')
-            .build();
-        const document = SwaggerModule.createDocument(nestApp, config);
-        SwaggerModule.setup('docs', nestApp, document);
 
         nestApp.enableCors();
 
