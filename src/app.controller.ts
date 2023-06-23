@@ -1,4 +1,4 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
 import { AppService } from './app.service';
@@ -9,7 +9,7 @@ export class AppController {
 
     @ApiTags('Mutant Validation')
     @Post()
-    isMutant(dna: string[]): boolean {
+    isMutant(@Body() dna: string[]): boolean {
         return this.appService.isMutant(dna);
     }
 
