@@ -23,6 +23,9 @@ export class Criteria {
     @Column({ type: 'text' })
     description: string;
 
+    @Column({ type: 'number' })
+    weight: string;
+
     @CreateDateColumn({
         type: 'timestamp',
         precision: 0,

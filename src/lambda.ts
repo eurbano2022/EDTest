@@ -47,12 +47,3 @@ export const handler = async (event, context) => {
 
     return cachedServer(event, context);
 };
-
-// // Agregar los encabezados en la respuesta
-// response.headers = {
-//     ...response.headers,
-//     'Content-Type': 'application/json',
-//     'Access-Control-Allow-Origin': '*',
-// };
-
-// return response;

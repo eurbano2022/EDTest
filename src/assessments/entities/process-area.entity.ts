@@ -22,6 +22,9 @@ export class ProcessArea {
     @Column({ type: 'text' })
     description: string;
 
+    @Column({ type: 'number' })
+    weight: string;
+
     @CreateDateColumn({
         type: 'timestamp',
         precision: 0,
