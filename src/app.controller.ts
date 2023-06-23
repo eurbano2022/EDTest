@@ -7,6 +7,12 @@ import { AppService } from './app.service';
 export class AppController {
     constructor(private readonly appService: AppService) {}
 
+    @ApiTags('Mutant Validation')
+    @Get()
+    mutantValidation(): string {
+        return this.appService.getHello();
+    }
+
     @ApiTags('Hello World')
     @Get()
     getHello(): string {

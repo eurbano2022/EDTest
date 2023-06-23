@@ -34,9 +34,10 @@ export const handler = async (event, context) => {
             .setDescription('Management of the Maturity Assessment')
             .setVersion('1.0')
             .build();
-
         const document = SwaggerModule.createDocument(nestApp, config);
         SwaggerModule.setup('docs', nestApp, document);
+
+        nestApp.enableCors();
 
         await nestApp.init();
 

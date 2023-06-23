@@ -10,7 +10,6 @@ async function bootstrap() {
         .setTitle('ED Test')
         .setDescription('Management of the Maturity Assessment')
         .setVersion('1.0')
-        // .addApiKey({ type: 'apiKey', name: 'Authorization', in: 'header' }, 'bearerToken')
         .build();
     const document = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('docs', app, document);
