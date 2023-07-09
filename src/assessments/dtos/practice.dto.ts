@@ -20,12 +20,7 @@ export class CreatePracticeDto {
     @IsPositive()
     @IsNotEmpty()
     @ApiProperty()
-    readonly processAreaId: number;
-
-    @IsPositive()
-    @IsNotEmpty()
-    @ApiProperty()
     readonly goalId: number;
 }
 
-export class UpdateGoalDto extends PartialType(CreatePracticeDto) {}
+export class UpdatePracticeDto extends PartialType(CreatePracticeDto) {}

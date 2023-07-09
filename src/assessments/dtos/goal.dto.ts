@@ -20,7 +20,7 @@ export class CreateGoalDto {
     @IsArray()
     @IsNotEmpty()
     @ApiProperty()
-    readonly criteriasIds: number[];
+    readonly criteriaIds: number[];
 }
 
 export class UpdateGoalDto extends PartialType(CreateGoalDto) {}
