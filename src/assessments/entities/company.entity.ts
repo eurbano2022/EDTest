@@ -23,7 +23,10 @@ export class Company {
     email: string;
 
     @Column({ type: 'text' })
-    type: string;
+    size: string;
+
+    @Column({ type: 'text' })
+    industry: string;
 
     //Audit Attributes
     @CreateDateColumn({

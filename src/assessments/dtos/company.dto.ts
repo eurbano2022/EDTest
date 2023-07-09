@@ -15,7 +15,12 @@ export class CreateCompanyDto {
     @IsString()
     @IsNotEmpty()
     @ApiProperty()
-    readonly type: string;
+    readonly size: string;
+
+    @IsString()
+    @IsNotEmpty()
+    @ApiProperty()
+    readonly industry: string;
 }
 
 export class UpdateCompanyDto extends PartialType(CreateCompanyDto) {}
