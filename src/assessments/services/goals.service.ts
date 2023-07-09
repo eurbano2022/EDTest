@@ -3,15 +3,16 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { CreateGoalDto, UpdateGoalDto } from '../dtos/goal.dto';
-import { Criteria } from '../entities/criteria.entity';
 import { Goal } from '../entities/goal.entity';
+
+import { CriteriaService } from './criteria.service';
 
 @Injectable()
 export class GoalsService {
     constructor(
         @InjectRepository(Goal)
         private goalRepo: Repository<Goal>,
-        private criteriaRepo: Repository<Criteria>,
+        private criteriaService: CriteriaService,
     ) {}
 
     findAll() {
@@ -31,10 +32,10 @@ export class GoalsService {
     async create(data: CreateGoalDto) {
         const newGoal = this.goalRepo.create(data);
         if (data.criteriaIds) {
-            const criteria = await this.criteriaRepo.findByIds(
+            const criteria = await this.criteriaService.findByIds(
                 data.criteriaIds,
             );
-            newGoal.criterias = criteria;
+            newGoal.criteria = criteria;
         }
         return this.goalRepo.save(newGoal);
     }
@@ -42,10 +43,10 @@ export class GoalsService {
     async update(id: number, changes: UpdateGoalDto) {
         const goal = await this.goalRepo.findOne({ where: { id } });
         if (changes.criteriaIds) {
-            const criteria = await this.criteriaRepo.findByIds(
+            const criteria = await this.criteriaService.findByIds(
                 changes.criteriaIds,
             );
-            goal.criterias = criteria;
+            goal.criteria = criteria;
         }
         this.goalRepo.merge(goal, changes);
         return this.goalRepo.save(goal);

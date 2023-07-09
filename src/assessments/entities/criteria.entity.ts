@@ -7,6 +7,7 @@ import {
     ManyToOne,
     OneToMany,
     ManyToMany,
+    OneToOne,
 } from 'typeorm';
 
 import { Activity } from './activity.entity';
@@ -61,10 +62,10 @@ export class Criteria {
     @OneToMany(() => Resource, (resource) => resource.criteria)
     resource: Resource[];
 
-    @OneToMany(() => Answer, (answer) => answer.criteria)
-    answer: Answer[];
+    @OneToOne(() => Answer, (answer) => answer.criteria, { nullable: true })
+    answer: Answer;
 
     //Many to Many
-    @ManyToMany(() => Goal, (goal) => goal.criterias)
+    @ManyToMany(() => Goal, (goal) => goal.criteria)
     goals: Goal[];
 }

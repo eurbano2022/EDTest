@@ -12,7 +12,7 @@ export class PracticesService {
     constructor(
         @InjectRepository(Practice)
         private practiceRepo: Repository<Practice>,
-        private goalService: GoalsService,
+        private goalsService: GoalsService,
     ) {}
 
     findAll() {
@@ -32,7 +32,7 @@ export class PracticesService {
     async create(data: CreatePracticeDto) {
         const newPractice = this.practiceRepo.create(data);
         if (data.goalId) {
-            const goal = await this.goalService.findOne(data.goalId);
+            const goal = await this.goalsService.findOne(data.goalId);
             newPractice.goal = goal;
         }
         return this.practiceRepo.save(newPractice);
@@ -41,7 +41,7 @@ export class PracticesService {
     async update(id: number, changes: UpdatePracticeDto) {
         const practice = await this.practiceRepo.findOne({ where: { id } });
         if (changes.goalId) {
-            const goal = await this.goalService.findOne(changes.goalId);
+            const goal = await this.goalsService.findOne(changes.goalId);
             practice.goal = goal;
         }
         this.practiceRepo.merge(practice, changes);

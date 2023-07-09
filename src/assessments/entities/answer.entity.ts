@@ -5,6 +5,8 @@ import {
     CreateDateColumn,
     UpdateDateColumn,
     ManyToOne,
+    OneToOne,
+    JoinColumn,
 } from 'typeorm';
 
 import { Company } from './company.entity';
@@ -40,7 +42,8 @@ export class Answer {
     updatedAt: Date;
 
     //Foreign keys
-    @ManyToOne(() => Criteria, (criteria) => criteria.answer)
+    @OneToOne(() => Criteria, (criteria) => criteria.answer, { nullable: true })
+    @JoinColumn()
     criteria: Criteria;
 
     @ManyToOne(() => Company, (company) => company.answers)

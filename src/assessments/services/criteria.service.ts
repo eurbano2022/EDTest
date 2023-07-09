@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 
 import { CreateCriteriaDto, UpdateCriteriaDto } from '../dtos/criteria.dto';
 import { Criteria } from '../entities/criteria.entity';
@@ -15,8 +15,13 @@ export class CriteriaService {
         private processAreasService: ProcessAreasService,
     ) {}
 
-    findAll() {
-        return this.criteriaRepo.find({
+    async findByIds(ids: number[]) {
+        return await this.criteriaRepo.find({
+            where: { id: In(ids) },
+        });
+    }
+    async findAll() {
+        return await this.criteriaRepo.find({
             relations: ['processArea', 'parent'],
         });
     }

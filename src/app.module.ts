@@ -8,8 +8,6 @@ import { AssessmentsModule } from './assessments/assessments.module';
 import config from './config';
 import { DatabaseModule } from './database/database.module';
 import { enviroments } from './environments';
-import { GoalsController } from './feed/assessments/controllers/goals/goals.controller';
-import { GoalsController } from './flet/assessments/controllers/goals/goals.controller';
 import { UsersModule } from './users/users.module';
 
 @Module({
@@ -30,7 +28,7 @@ import { UsersModule } from './users/users.module';
         AssessmentsModule,
         DatabaseModule,
     ],
-    controllers: [AppController, GoalsController],
+    controllers: [AppController],
     providers: [AppService],
 })
 export class AppModule {}

@@ -51,5 +51,5 @@ export class Goal {
     //Many to Many
     @ManyToMany(() => Criteria, (criteria) => criteria.goals)
     @JoinTable()
-    criterias: Criteria[];
+    criteria: Criteria[];
 }
