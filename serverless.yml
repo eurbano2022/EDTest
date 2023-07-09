@@ -19,6 +19,7 @@ functions:
             - httpApi:
                 method: any
                 path: /{proxy+}
+                cors: true
 custom:
     apigateway:
         responses:
@@ -29,10 +30,6 @@ custom:
                     method.response.header.Access-Control-Allow-Origin: "'*'"
     apiKeys: []
     usagePlan: {}
-package:
-  exclude:
-    - node_modules/**
-    - venv/**
 plugins:
     - serverless-jetpack
     - serverless-offline
