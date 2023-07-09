@@ -29,6 +29,10 @@ custom:
                     method.response.header.Access-Control-Allow-Origin: "'*'"
     apiKeys: []
     usagePlan: {}
+package:
+  exclude:
+    - node_modules/**
+    - venv/**
 plugins:
     - serverless-jetpack
     - serverless-offline
