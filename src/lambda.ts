@@ -3,7 +3,6 @@ import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { configure as serverlessExpress } from '@vendia/serverless-express';
 import * as cors from 'cors';
-import * as express from 'express';
 
 import { AppModule } from './app.module';
 
