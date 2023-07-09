@@ -2,8 +2,12 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { ActivitiesController } from './controllers/activities.controller';
+import { AnswersController } from './controllers/answers/answers.controller';
+import { CompaniesController } from './controllers/companies.controller';
 import { CriteriaController } from './controllers/criteria.controller';
+import { GoalsController } from './controllers/goals.controller';
 import { LevelsController } from './controllers/levels.controller';
+import { PracticesController } from './controllers/practices.controller';
 import { ProcessAreasController } from './controllers/process-areas.controller';
 import { ResourcesController } from './controllers/resources.controller';
 import { Activity } from './entities/activity.entity';
@@ -16,6 +20,11 @@ import { CriteriaService } from './services/criteria.service';
 import { LevelsService } from './services/levels.service';
 import { ProcessAreasService } from './services/process-areas.service';
 import { ResourcesService } from './services/resources.service';
+import { PracticesService } from './controllers/practices.service';
+import { PracticesService } from './services/practices.service';
+import { CompaniesService } from './services/companies.service';
+import { GoalsService } from './services/goals.service';
+import { AnswersService } from './services/answers.service';
 
 @Module({
     imports: [
@@ -33,6 +42,10 @@ import { ResourcesService } from './services/resources.service';
         CriteriaService,
         ActivitiesService,
         ResourcesService,
+        PracticesService,
+        CompaniesService,
+        GoalsService,
+        AnswersService,
     ],
     controllers: [
         CriteriaController,
@@ -40,6 +53,10 @@ import { ResourcesService } from './services/resources.service';
         LevelsController,
         ActivitiesController,
         ResourcesController,
+        AnswersController,
+        GoalsController,
+        CompaniesController,
+        PracticesController,
     ],
 })
 export class AssessmentsModule {}

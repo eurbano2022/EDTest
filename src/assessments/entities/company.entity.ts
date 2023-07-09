@@ -4,15 +4,13 @@ import {
     Entity,
     CreateDateColumn,
     UpdateDateColumn,
-    ManyToOne,
     OneToMany,
 } from 'typeorm';
 
-import { Criteria } from './criteria.entity';
-import { Level } from './level.entity';
+import { Answer } from './answer.entity';
 
 @Entity()
-export class ProcessArea {
+export class Company {
     //key
     @PrimaryGeneratedColumn()
     id: number;
@@ -22,10 +20,10 @@ export class ProcessArea {
     name: string;
 
     @Column({ type: 'text' })
-    description: string;
+    email: string;
 
-    @Column({ type: 'int' })
-    weight: number;
+    @Column({ type: 'text' })
+    type: string;
 
     //Audit Attributes
     @CreateDateColumn({
@@ -43,11 +41,7 @@ export class ProcessArea {
     })
     updatedAt: Date;
 
-    //Foreign keys
-    @ManyToOne(() => Level, (level) => level.processAreas)
-    level: Level;
-
     //Keys into external Tables
-    @OneToMany(() => Criteria, (criteria) => criteria.processArea)
-    criteria: Criteria[];
+    @OneToMany(() => Answer, (answer) => answer.company)
+    answers: Answer[];
 }

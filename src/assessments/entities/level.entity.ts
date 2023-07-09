@@ -11,15 +11,18 @@ import { ProcessArea } from './process-area.entity';
 
 @Entity()
 export class Level {
+    //key
     @PrimaryGeneratedColumn()
     id: number;
 
+    //Attributes
     @Column({ type: 'varchar', length: 255, unique: true })
     name: string;
 
     @Column({ type: 'text' })
     description: string;
 
+    //Audit Attributes
     @CreateDateColumn({
         type: 'timestamp',
         precision: 0,
@@ -35,6 +38,7 @@ export class Level {
     })
     updatedAt: Date;
 
+    //Keys into external Tables
     @OneToMany(() => ProcessArea, (product) => product.level)
     processAreas: ProcessArea[];
 }
